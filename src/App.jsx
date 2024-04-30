@@ -1,8 +1,8 @@
 function App() {
   return (
     <>
-      <div>
-        <h1 className="text-4xl">Hello World</h1>
+      <div className="w-screen h-screen bg-white flex flex-col justify-center">
+        <h1 className="text-[80px] font-display">Jaafar</h1>
       </div>
     </>
   );
