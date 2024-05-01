@@ -17,7 +17,7 @@ const LinkList = (props) => {
       {/* LISTE DE LIENS */}
       <div
         onMouseMove={handleMouseMove}
-        className="flex px-10 flex-col items-start w-full"
+        className="flex px-10 cursor-default flex-col items-start w-full"
       >
         <h2 className="text-stone-900 text-lg uppercase tracking-widest font-normal">
           covers

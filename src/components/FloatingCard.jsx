@@ -26,15 +26,6 @@ const FloatingCard = (props) => {
       delay: 0.2,
       ease: "power1.out",
     });
-
-    return () => {
-      gsap.to(cardRef.current, {
-        duration: 0.5,
-        opacity: 0,
-        scale: 0.5,
-        ease: "power1.in",
-      });
-    };
   }, []);
 
   // ANIMATION DE SUIVI DE LA SOURIS
@@ -62,8 +53,9 @@ const FloatingCard = (props) => {
         return nextIndex;
       });
     }, 120);
-
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+    };
   }, [props.link.images.length, props.currentLinkIndex]);
 
   return (
