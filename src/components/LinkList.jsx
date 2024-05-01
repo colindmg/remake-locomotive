@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import FloatingCard from "./FloatingCard";
 
 const LinkList = (props) => {
   // Lien que l'on est actuellement en train de survoler
@@ -43,27 +44,12 @@ const LinkList = (props) => {
 
       {/* DIV D'IMAGE FLOTTANTE */}
       {currentLinkIndex !== -1 && (
-        <div
-          style={{
-            position: "fixed",
-            left: `${mousePosition.x + 50}px`,
-            top: `${mousePosition.y - 250}px`,
-            transition: "top 0.2s ease-out, left 0.2s ease-out",
-          }}
-          className="w-64 bg-stone-900 p-2 rounded-sm flex flex-col items-start pointer-events-none"
-        >
-          <img
-            src={props.links[currentLinkIndex].images[0]}
-            alt={props.links[currentLinkIndex].name}
-            className="w-full h-full object-cover mb-2"
-          />
-          <h3 className="text-white text-lg font-light">
-            {props.links[currentLinkIndex].name} by{" "}
-            <span className="underline decoration-1 underline-offset-4 ">
-              {props.links[currentLinkIndex].artist}
-            </span>
-          </h3>
-        </div>
+        <FloatingCard
+          link={props.links[currentLinkIndex]}
+          mouseX={mousePosition.x}
+          mouseY={mousePosition.y}
+          currentLinkIndex={currentLinkIndex}
+        />
       )}
     </>
   );
