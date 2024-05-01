@@ -47,7 +47,7 @@ const LinkList = (props) => {
           style={{
             position: "fixed",
             left: `${mousePosition.x + 50}px`,
-            top: `${mousePosition.y - 200}px`,
+            top: `${mousePosition.y - 250}px`,
             transition: "top 0.2s ease-out, left 0.2s ease-out",
           }}
           className="w-64 bg-stone-900 p-2 rounded-sm flex flex-col items-start pointer-events-none"
