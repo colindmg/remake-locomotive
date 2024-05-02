@@ -10,7 +10,7 @@ This project is a remake of a cool animation I saw on the Locomotive agency webs
 
 - Animation "3D" du titre de l'album au hover https://www.youtube.com/watch?v=sOschfDqXH8
 - Text reveal pour les titres des sons d'un album https://www.youtube.com/watch?v=vAp3xL1AY4I
-- Effet de rebond à l'ouverture de la card flottante
+- Effet de rebond à l'ouverture de la card flottante **DONE**
 - Icones fait main dans le même style que la police de display
 
 ---

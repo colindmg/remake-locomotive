@@ -26,9 +26,16 @@ const FloatingCard = (props) => {
         },
         {
           opacity: 1,
-          scale: 1,
+          scale: 1.05,
         }
       );
+
+      gsap.to(cardRef.current, {
+        duration: 0.2,
+        scale: 1,
+        delay: 0.6,
+        ease: "power1.out",
+      });
 
       gsap.fromTo(
         cardImgRef.current,
@@ -46,7 +53,8 @@ const FloatingCard = (props) => {
       gsap.to(cardRef.current, {
         duration: 0.5,
         opacity: 0,
-        delay: 0.1,
+        delay: 0.3,
+        scale: 0.5,
         ease: "power1.out",
       });
       gsap.to(cardImgRef.current, {
@@ -57,6 +65,24 @@ const FloatingCard = (props) => {
       });
     }
   }, [props.animationType]);
+
+  // ANIMATION DU CHANGEMENT
+  useGSAP(() => {
+    if (props.animationType === "change") {
+      gsap.to(cardRef.current, {
+        duration: 0.2,
+        scale: 0.95,
+        ease: "power1.out",
+      });
+      gsap.to(cardRef.current, {
+        duration: 0.3,
+        scale: 1,
+        delay: 0.2,
+        ease: "power1.out",
+      });
+    }
+    return;
+  }, [props.animationType, props.currentLinkIndex]);
 
   // ANIMATION DE SUIVI DE LA SOURIS
   useGSAP(() => {
