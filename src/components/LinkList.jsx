@@ -5,25 +5,19 @@ import FloatingCard from "./FloatingCard";
 const LinkList = (props) => {
   // Lien que l'on est actuellement en train de survoler
   const [currentLinkIndex, setCurrentLinkIndex] = useState(-1);
-  const [previousLinkIndex, setPreviousLinkIndex] = useState(-1);
-  const [typeAnimation, setTypeAnimation] = useState(null);
-
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (event) => {
-    setMousePosition({ x: event.clientX, y: event.clientY });
-  };
+  const [previousLinkIndex, setPreviousLinkIndex] = useState(0);
+  const [animationType, setAnimationType] = useState(null);
 
   useEffect(() => {
     // console.log(previousLinkIndex, "->", currentLinkIndex);
     if (previousLinkIndex === -1) {
-      setTypeAnimation("enter");
+      setAnimationType("enter");
       console.log("enter");
     } else if (currentLinkIndex === -1) {
-      setTypeAnimation("leave");
+      setAnimationType("leave");
       console.log("leave");
     } else {
-      setTypeAnimation("change");
+      setAnimationType("change");
       console.log("change");
     }
   }, [previousLinkIndex, currentLinkIndex]);
@@ -31,10 +25,7 @@ const LinkList = (props) => {
   return (
     <>
       {/* LISTE DE LIENS */}
-      <div
-        onMouseMove={handleMouseMove}
-        className="flex px-10 cursor-default flex-col items-start w-full"
-      >
+      <div className="flex px-10 flex-col items-start w-full">
         <h2 className="text-stone-900 text-lg uppercase tracking-widest font-normal">
           covers
         </h2>
@@ -59,20 +50,23 @@ const LinkList = (props) => {
             </h2>
           </div>
         ))}
-        <h2 className="text-stone-900 uppercase tracking-widest font-normal self-end">
-          @colindmg
+        <h2 className="text-stone-900 font-normal self-end font-display italic mt-2">
+          colindmg
         </h2>
       </div>
 
       {/* DIV D'IMAGE FLOTTANTE */}
-      {currentLinkIndex !== -1 && (
-        <FloatingCard
-          link={props.links[currentLinkIndex]}
-          mouseX={mousePosition.x}
-          mouseY={mousePosition.y}
-          currentLinkIndex={currentLinkIndex}
-        />
-      )}
+      <FloatingCard
+        link={
+          currentLinkIndex !== -1
+            ? props.links[currentLinkIndex]
+            : props.links[previousLinkIndex]
+        }
+        mouseX={props.mousePosition.x}
+        mouseY={props.mousePosition.y}
+        currentLinkIndex={currentLinkIndex}
+        animationType={animationType}
+      />
     </>
   );
 };
@@ -85,6 +79,10 @@ LinkList.propTypes = {
       images: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
   ),
+  mousePosition: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+  }),
 };
 
 export default LinkList;

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import LinkList from "./components/LinkList";
 
 import {
@@ -34,10 +35,29 @@ const albumLinks = [
 // 5 : Originale
 
 function App() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (event) => {
+    setMousePosition({
+      x: event.clientX,
+      y: event.clientY,
+    });
+  };
+
   return (
     <>
-      <div className="w-screen h-screen bg-white flex flex-col justify-center">
-        <LinkList links={albumLinks} />
+      <div
+        onMouseMove={handleMouseMove}
+        className="w-screen h-screen cursor-none bg-white flex flex-col justify-center"
+      >
+        <LinkList links={albumLinks} mousePosition={mousePosition} />
+        <div
+          className="absolute z-30 bg-stone-900 w-5 h-5 rounded-full transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          style={{
+            left: mousePosition.x,
+            top: mousePosition.y,
+          }}
+        />
       </div>
     </>
   );
