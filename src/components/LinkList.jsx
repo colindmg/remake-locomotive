@@ -1,16 +1,32 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FloatingCard from "./FloatingCard";
 
 const LinkList = (props) => {
   // Lien que l'on est actuellement en train de survoler
   const [currentLinkIndex, setCurrentLinkIndex] = useState(-1);
+  const [previousLinkIndex, setPreviousLinkIndex] = useState(-1);
+  const [typeAnimation, setTypeAnimation] = useState(null);
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (event) => {
     setMousePosition({ x: event.clientX, y: event.clientY });
   };
+
+  useEffect(() => {
+    // console.log(previousLinkIndex, "->", currentLinkIndex);
+    if (previousLinkIndex === -1) {
+      setTypeAnimation("enter");
+      console.log("enter");
+    } else if (currentLinkIndex === -1) {
+      setTypeAnimation("leave");
+      console.log("leave");
+    } else {
+      setTypeAnimation("change");
+      console.log("change");
+    }
+  }, [previousLinkIndex, currentLinkIndex]);
 
   return (
     <>
@@ -25,8 +41,14 @@ const LinkList = (props) => {
         {props.links.map((link, index) => (
           // LIEN
           <div
-            onMouseEnter={() => setCurrentLinkIndex(index)}
-            onMouseLeave={() => setCurrentLinkIndex(-1)}
+            onMouseEnter={() => {
+              setPreviousLinkIndex(currentLinkIndex);
+              setCurrentLinkIndex(index);
+            }}
+            onMouseLeave={() => {
+              setPreviousLinkIndex(currentLinkIndex);
+              setCurrentLinkIndex(-1);
+            }}
             key={link.name}
             className={`w-full flex items-center border-t-2 px-5 py-3 border-stone-900 ${
               index === 0 ? "" : "border-b-2"
