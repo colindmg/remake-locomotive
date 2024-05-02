@@ -16,6 +16,7 @@ import Hermite3 from "./img/hermite3.png";
 import Hermite4 from "./img/hermite4.png";
 import Hermite5 from "./img/hermite5.jpg";
 
+import HermiteIcon from "./icons/hermite.svg";
 import MobiusIcon from "./icons/mobius.svg";
 import SherpaIcon from "./icons/sherpa.svg";
 
@@ -25,6 +26,7 @@ export {
   Hermite3,
   Hermite4,
   Hermite5,
+  HermiteIcon,
   Mobius1,
   Mobius2,
   Mobius3,

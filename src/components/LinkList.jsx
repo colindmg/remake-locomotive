@@ -45,15 +45,20 @@ const LinkList = (props) => {
               index == props.links.length - 1 ? " border-b-2" : ""
             }`}
           >
-            <h2 className="text-[80px] font-display text-stone-900">
-              {link.name}
-            </h2>
+            <div className="relative">
+              <h2 className="text-[80px] font-display text-stone-900">
+                {link.name}
+              </h2>
+              <h2 className="absolute top-0 text-[80px] font-display text-stone-900">
+                {link.name}
+              </h2>
+            </div>
 
             {link.icon && (
               <img
                 src={link.icon}
                 alt={link.name}
-                className="h-2/4 opacity-0 object-cover object-center rotate-12 translate-x-4 translate-y-6 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:rotate-0 transition-all duration-500"
+                className="h-2/4 opacity-0 object-cover object-center  translate-y-7 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500"
               />
             )}
           </div>

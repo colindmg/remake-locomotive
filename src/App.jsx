@@ -7,6 +7,7 @@ import {
   Hermite3,
   Hermite4,
   Hermite5,
+  HermiteIcon,
   Mobius1,
   Mobius2,
   Mobius3,
@@ -38,6 +39,7 @@ const albumLinks = [
     name: "L'Hermite",
     artist: "Ajna",
     images: [Hermite1, Hermite2, Hermite3, Hermite4, Hermite5],
+    icon: HermiteIcon,
   },
 ];
 
