@@ -71,26 +71,26 @@ const FloatingCard = (props) => {
 
   // ANIMATION CHANGEMENT D'IMAGE
   useEffect(() => {
-    if (props.animationType === "leave") {
-      return;
-    }
-    setCurrentImageIndex(0);
+    // Définit l'index de départ en fonction du type d'animation
+    const startIndex =
+      props.animationType === "leave" ? props.link.images.length - 1 : 0;
+    setCurrentImageIndex(startIndex);
 
-    let delay = 200;
-    if (props.animationType === "change") {
-      delay = 0;
-    }
+    let delay = props.animationType === "enter" ? 200 : 0;
     const timeout = setTimeout(() => {
       const timer = setInterval(() => {
         setCurrentImageIndex((prevIndex) => {
-          const nextIndex = prevIndex + 1;
-          if (nextIndex >= props.link.images.length) {
+          // Calcule le prochain index en fonction du type d'animation
+          const nextIndex =
+            props.animationType === "leave" ? prevIndex - 1 : prevIndex + 1;
+          // Vérifie si l'index sort de la plage autorisée et arrête l'intervalle
+          if (nextIndex < 0 || nextIndex >= props.link.images.length) {
             clearInterval(timer);
             return prevIndex;
           }
           return nextIndex;
         });
-      }, 120);
+      }, 100);
       return () => {
         clearInterval(timer);
       };
@@ -99,7 +99,43 @@ const FloatingCard = (props) => {
     return () => {
       clearTimeout(timeout);
     };
-  }, [props.link.images.length, props.currentLinkIndex, props.animationType]);
+  }, [
+    props.link.images.length,
+    props.currentLinkIndex,
+    props.animationType,
+    setCurrentImageIndex,
+  ]);
+
+  // useEffect(() => {
+  //   if (props.animationType === "leave") {
+  //     return;
+  //   }
+  //   setCurrentImageIndex(0);
+
+  //   let delay = 200;
+  //   if (props.animationType === "change") {
+  //     delay = 0;
+  //   }
+  //   const timeout = setTimeout(() => {
+  //     const timer = setInterval(() => {
+  //       setCurrentImageIndex((prevIndex) => {
+  //         const nextIndex = prevIndex + 1;
+  //         if (nextIndex >= props.link.images.length) {
+  //           clearInterval(timer);
+  //           return prevIndex;
+  //         }
+  //         return nextIndex;
+  //       });
+  //     }, 120);
+  //     return () => {
+  //       clearInterval(timer);
+  //     };
+  //   }, delay);
+
+  //   return () => {
+  //     clearTimeout(timeout);
+  //   };
+  // }, [props.link.images.length, props.currentLinkIndex, props.animationType]);
 
   return (
     <div
@@ -107,7 +143,7 @@ const FloatingCard = (props) => {
       style={{
         transition: "bottom 0.2s ease-out, left 0.2s ease-out",
       }}
-      className="opacity-40 fixed z-50 w-64 bg-stone-900 p-2 rounded-sm flex flex-col items-start pointer-events-none"
+      className="opacity-0 fixed z-50 w-64 bg-stone-900 p-2 rounded-sm flex flex-col items-start pointer-events-none"
     >
       <img
         ref={cardImgRef}

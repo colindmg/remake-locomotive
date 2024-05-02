@@ -41,13 +41,21 @@ const LinkList = (props) => {
               setCurrentLinkIndex(-1);
             }}
             key={link.name}
-            className={`w-full flex items-center border-t-2 px-5 py-3 border-stone-900 ${
-              index === 0 ? "" : "border-b-2"
+            className={`w-full flex group items-center justify-between border-t-2 px-5 py-3 border-stone-900 ${
+              index == props.links.length - 1 ? " border-b-2" : ""
             }`}
           >
             <h2 className="text-[80px] font-display text-stone-900">
               {link.name}
             </h2>
+
+            {link.icon && (
+              <img
+                src={link.icon}
+                alt={link.name}
+                className="h-2/4 opacity-0 object-cover object-center rotate-12 translate-x-4 translate-y-6 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:rotate-0 transition-all duration-500"
+              />
+            )}
           </div>
         ))}
         <h2 className="text-stone-900 font-normal self-end font-display italic mt-2">

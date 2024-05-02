@@ -2,16 +2,23 @@ import { useState } from "react";
 import LinkList from "./components/LinkList";
 
 import {
+  Hermite1,
+  Hermite2,
+  Hermite3,
+  Hermite4,
+  Hermite5,
   Mobius1,
   Mobius2,
   Mobius3,
   Mobius4,
   Mobius5,
+  MobiusIcon,
   Sherpa1,
   Sherpa2,
   Sherpa3,
   Sherpa4,
   Sherpa5,
+  SherpaIcon,
 } from "./assets";
 
 const albumLinks = [
@@ -19,11 +26,18 @@ const albumLinks = [
     name: "Möbius",
     artist: "Rounhaa",
     images: [Mobius1, Mobius2, Mobius3, Mobius4, Mobius5],
+    icon: MobiusIcon,
   },
   {
     name: "Sherpa",
     artist: "Ajna",
     images: [Sherpa1, Sherpa2, Sherpa3, Sherpa4, Sherpa5],
+    icon: SherpaIcon,
+  },
+  {
+    name: "L'Hermite",
+    artist: "Ajna",
+    images: [Hermite1, Hermite2, Hermite3, Hermite4, Hermite5],
   },
 ];
 

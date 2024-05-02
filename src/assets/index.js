@@ -10,15 +10,31 @@ import Mobius3 from "./img/mobius3.png";
 import Mobius4 from "./img/mobius4.png";
 import Mobius5 from "./img/mobius5.webp";
 
+import Hermite1 from "./img/hermite1.png";
+import Hermite2 from "./img/hermite2.png";
+import Hermite3 from "./img/hermite3.png";
+import Hermite4 from "./img/hermite4.png";
+import Hermite5 from "./img/hermite5.jpg";
+
+import MobiusIcon from "./icons/mobius.svg";
+import SherpaIcon from "./icons/sherpa.svg";
+
 export {
+  Hermite1,
+  Hermite2,
+  Hermite3,
+  Hermite4,
+  Hermite5,
   Mobius1,
   Mobius2,
   Mobius3,
   Mobius4,
   Mobius5,
+  MobiusIcon,
   Sherpa1,
   Sherpa2,
   Sherpa3,
   Sherpa4,
   Sherpa5,
+  SherpaIcon,
 };
