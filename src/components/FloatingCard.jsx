@@ -116,7 +116,7 @@ const FloatingCard = (props) => {
           }
           return nextIndex;
         });
-      }, 100);
+      }, 110);
       return () => {
         clearInterval(timer);
       };

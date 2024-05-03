@@ -16,8 +16,11 @@ import Hermite3 from "./img/hermite3.png";
 import Hermite4 from "./img/hermite4.png";
 import Hermite5 from "./img/hermite5.jpg";
 
+import HermiteWhite from "./icons/hermitewhite.svg";
 import HermiteIcon from "./icons/hermite.svg";
+import MobiusWhite from "./icons/mobiuswhite.svg";
 import MobiusIcon from "./icons/mobius.svg";
+import SherpaWhite from "./icons/sherpawhite.svg";
 import SherpaIcon from "./icons/sherpa.svg";
 
 export {
@@ -27,16 +30,19 @@ export {
   Hermite4,
   Hermite5,
   HermiteIcon,
+  HermiteWhite,
   Mobius1,
   Mobius2,
   Mobius3,
   Mobius4,
   Mobius5,
   MobiusIcon,
+  MobiusWhite,
   Sherpa1,
   Sherpa2,
   Sherpa3,
   Sherpa4,
   Sherpa5,
   SherpaIcon,
+  SherpaWhite,
 };
