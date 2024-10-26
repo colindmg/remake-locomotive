@@ -1,6 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import LinkList from "./components/LinkList";
 gsap.registerPlugin(useGSAP);
 
@@ -49,20 +49,14 @@ const albumLinks = [
   },
 ];
 
-// Mémo Jauge de pixelisation des images sur PixelIt
-// 1 : 2
-// 2 : 3
-// 3 : 5
-// 4 : 10
-// 5 : Originale
-
 function App() {
   const mainPageRef = useRef(null);
   const logosRef = useRef([]);
-
+  const loadingProgressText = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
   const [entryAnimHasEnded, setEntryAnimHasEnded] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   const handleMouseMove = (event) => {
     setMousePosition({
@@ -71,55 +65,87 @@ function App() {
     });
   };
 
-  useGSAP(() => {
-    const tl = gsap.timeline();
-    // ANIMATION D'ENTRÉE DE LA PAGE
-    tl.fromTo(
-      mainPageRef.current,
-      {
-        scale: 0.5,
-        x: window.innerWidth,
-      },
-      {
-        scale: 0.5,
-        x: 0,
-        duration: 1.5,
-        delay: 1.5,
-        ease: "power1.out",
-      }
-    ).to(mainPageRef.current, {
-      scale: 1,
-      duration: 1,
-      ease: "power1.out",
-      onComplete: () => {
-        setEntryAnimHasEnded(true);
-      },
-    });
+  useEffect(() => {
+    const imageUrls = [
+      ...albumLinks.flatMap((album) => album.images),
+      SherpaWhite,
+      MobiusWhite,
+      HermiteWhite,
+      ...albumLinks.map((album) => album.icon),
+    ];
 
-    // ANIMATION DES LOGOS
-    gsap.fromTo(
-      logosRef.current,
-      {
-        opacity: 0,
-      },
-      {
-        delay: 1,
-        opacity: 1,
-        duration: 0.3,
-        stagger: 0.2,
-        ease: "power1.out",
-      }
-    );
+    let loadedCount = 0;
 
-    // DISPARITION DES LOGOS DANS L'AUTRE SENS
-    gsap.to(logosRef.current, {
-      opacity: 0,
-      duration: 0.3,
-      delay: 1.85,
-      stagger: -0.2,
-      ease: "power1.out",
+    imageUrls.forEach((src) => {
+      const img = new Image();
+      img.onload = () => {
+        loadedCount++;
+        setLoadingProgress((loadedCount / imageUrls.length) * 100);
+        if (loadedCount === imageUrls.length) {
+          setImagesLoaded(true);
+        }
+      };
+      img.src = src;
     });
   }, []);
+
+  useGSAP(() => {
+    if (!imagesLoaded) {
+      // ANIMATION DES LOGOS
+      gsap.fromTo(
+        logosRef.current,
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          duration: 0.3,
+          stagger: 0.2,
+          ease: "power1.out",
+        }
+      );
+    } else {
+      const tl = gsap.timeline();
+      // ANIMATION D'ENTRÉE DE LA PAGE
+      tl.fromTo(
+        mainPageRef.current,
+        {
+          scale: 0.5,
+          x: window.innerWidth,
+        },
+        {
+          scale: 0.5,
+          x: 0,
+          duration: 1.5,
+          delay: 1.5,
+          ease: "power1.out",
+          onStart: () => {
+            // DISPARITION DES LOGOS DANS L'AUTRE SENS
+            gsap.to(logosRef.current, {
+              opacity: 0,
+              delay: 0.3,
+              duration: 0.3,
+              stagger: -0.2,
+              ease: "power1.out",
+            });
+
+            gsap.to(loadingProgressText.current, {
+              opacity: 0,
+              duration: 0.8,
+              ease: "power1.out",
+            });
+          },
+        }
+      ).to(mainPageRef.current, {
+        scale: 1,
+        duration: 1,
+        ease: "power1.out",
+        onComplete: () => {
+          setEntryAnimHasEnded(true);
+        },
+      });
+    }
+  }, [imagesLoaded]);
 
   return (
     <>
@@ -145,6 +171,13 @@ function App() {
           />
         </div>
       )}
+
+      <p
+        ref={loadingProgressText}
+        className="font-display text-4xl fixed z-[1000] bottom-10 left-10 text-white"
+      >
+        {loadingProgress}
+      </p>
 
       <div
         ref={mainPageRef}
